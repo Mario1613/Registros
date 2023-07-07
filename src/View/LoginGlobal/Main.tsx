@@ -12,7 +12,7 @@ import { changeViewForm } from '../../store/slices/context';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const Main = () => {
-    const viewForm = useSelector((state: RootState) => state.context.viewForm);
+    const view_form = useSelector((state: RootState) => state.context.view_form);
     const [userInfo, setUserInfo] = useState<any>();
     const navigate = useNavigate();
     const dispatch = useDispatch()
@@ -31,14 +31,20 @@ const Main = () => {
     const LOADINFO = async () => {
         //si hay un dato redirecciona
         if (idStorage) navigate(`/registro/${idStorage}`);
-        if (!id && !idStorage || id == null) dispatch(changeViewForm('registrar'))
+        if ((!id && !idStorage) || id == null) dispatch(changeViewForm('registrar'))
         if (id) {
             //consulta la informacion en firebase
             const responseInfo = await getRegistro(id);
             if (responseInfo) {
                 const result = responseInfo.data();
-                if (result) setUserInfo(result);
-                dispatch(changeViewForm('registrado'))
+                if (result) {
+                    setUserInfo(result);
+                    dispatch(changeViewForm('registrado'))
+                }
+                if (!result) {
+                    localStorage.removeItem('idsesion')
+                    navigate('/registro');
+                }
             }
         }
     };
@@ -55,7 +61,7 @@ const Main = () => {
             <ContainerWrapper>
                 <Row className="justify-content-center flex-md-row-reverse">
                     <Col xs={12} md={8} lg={6} className='mt-4' >
-                        {viewShow[viewForm]}
+                        {viewShow[view_form]}
                     </Col>
                     <Col className='mt-4'>
                         <ContactoComponent
