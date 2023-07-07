@@ -1,8 +1,8 @@
 import React from 'react';
-import { FormValues } from '../../models/GlobalTypes';
+import { Registro } from '../../models/GlobalTypes';
 
 interface Props {
-    userInfo: FormValues;
+    userInfo: Registro;
 }
 
 const Registrado = ({ userInfo }: Props) => {
