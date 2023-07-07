@@ -10,30 +10,30 @@ type RouteButton = {
 interface Props {
     routeButtons: RouteButton[];
     title: string;
-    sidebarClick: boolean;
+    sidebar_click: boolean;
 }
 
 /**
- * @param sidebarClick activa el sidebar con un boolean
+ * @param sidebar_click activa el sidebar con un boolean
  * @param title son los titulos del sidebar
  * @param routeButtons son los botones laterales en forma de arreglo de objetos 
  * @returns 
  */
-const AsideBarComponent = ({ sidebarClick, title, routeButtons }: Props) => {
+const AsideBarComponent = ({ sidebar_click, title, routeButtons }: Props) => {
     //Depediendo la ruta se le aplicara una clase color azul a los botones
     const location = useLocation();
     const currentPath = location.pathname;
     return (
         <div
-            className={`d-none d-block d-sm-flex flex-column flex-shrink-0 ${sidebarClick && 'p-3'} bg-light h-100 position-fixed elevation-4`}
+            className={`d-none d-block d-sm-flex flex-column flex-shrink-0 ${sidebar_click ? 'p-3' : ""} bg-light h-100 position-fixed elevation-4`}
             style={{
-                marginLeft: `${sidebarClick ? '0%' : '-15%'}`,
+                marginLeft: `${sidebar_click ? '0%' : '-15%'}`,
                 width: '15%',
                 transition: 'margin .3s',
                 zIndex: '100'
             }}
         >
-            {sidebarClick && (
+            {sidebar_click && (
                 <>
                     <Link to="/registro" className="d-flex align-items-center mb-3 mb-md-0 link-dark text-decoration-none mt-4">
                         <span className="fs-2 d-flex text-center text-success fw-bold">{title}</span>
