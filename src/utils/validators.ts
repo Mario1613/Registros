@@ -1,7 +1,7 @@
 const validateCreditCard = (value: string) => {
     // Aquí puedes implementar la lógica de validación de la tarjeta de crédito, utilizando bibliotecas como 'card-validator'
     // Por simplicidad, aquí solo verificamos que se haya ingresado un número válido de tarjeta de crédito
-    if (!value || value.length !== 16) {
+    if (!value || value.length < 15) {
         return 'Por favor, ingresa un número de tarjeta de crédito válido';
     }
     return undefined;
@@ -17,7 +17,7 @@ const validateYouTubeUrl = (value: string) => {
 }
 const validateName = (value: string) => {
     let errorMessage = '';
-    if (value.length <= 3) {
+    if (value.length <= 4) {
         errorMessage = 'Este campo es requerido';
     }
     return errorMessage;
