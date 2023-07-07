@@ -1,9 +1,7 @@
-import React from "react";
 import Logo from "../assets/logo-blanco.png";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import { RootState } from "../store";
-import { useSelector } from 'react-redux';
+
 
 interface Props {
     pushClick: () => void;
