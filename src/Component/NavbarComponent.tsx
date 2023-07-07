@@ -1,19 +1,62 @@
-import React from "react"
-import Logo from "../assets/logo-blanco.png"
-import { Link } from "react-router-dom"
+import React from "react";
+import Logo from "../assets/logo-blanco.png";
+import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
+import { RootState } from "../store";
+import { useSelector } from 'react-redux';
 
 interface Props {
-    tamanio: string
+    pushClick: () => void;
+    sidebar_click: any
 }
 
-const NavbarComponent = ({ tamanio }: Props) => {
+const NavbarComponent = ({ pushClick, sidebar_click }: Props) => {
+
+
     return (
-        <nav className="navbar navbar-light bg-success fixed-top " style={{ marginLeft: tamanio, maxWidth: '100%' }}>
-            <div className="container-fluid justify-content-center">
-                <Link to='/'><img src={Logo} width="90%" alt="Logo Standex" /></Link>
+        <nav
+            className={`navbar-wrapper ${sidebar_click ? "sidebar-click" : ""}`}
+        >
+            <Button
+                className="position-absolute d-none d-sm-flex"
+                style={{ left: 0 }}
+                onClick={() => pushClick()}
+            >
+                X
+            </Button>
+            <div className="container-fluid navbar-container">
+                <Link to="/registro">
+                    <img src={Logo} alt="Logo Standex" />
+                </Link>
             </div>
-        </nav>
-    )
 
-}
-export default NavbarComponent
+            <style >{`
+        .navbar-wrapper {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          background-color: #198754;
+          transition: margin-left 0.3s ease;
+          margin-left: 0;
+        }
+
+        .sidebar-click {
+          margin-left: 15%;
+        }
+
+        .navbar-container {
+          display: flex;
+          justify-content: center;
+        }
+
+        img {
+          width: 90%;
+        }
+      `}</style>
+        </nav>
+    );
+};
+
+export default NavbarComponent;
+
