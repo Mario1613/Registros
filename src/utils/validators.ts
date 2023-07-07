@@ -1,9 +1,13 @@
+import { number as validateCreditCardNumber } from 'card-validator';
+
+
 const validateCreditCard = (value: string) => {
-    // Aquí puedes implementar la lógica de validación de la tarjeta de crédito, utilizando bibliotecas como 'card-validator'
-    // Por simplicidad, aquí solo verificamos que se haya ingresado un número válido de tarjeta de crédito
-    if (!value || value.length < 15) {
+    const validation = validateCreditCardNumber(value);
+
+    if (!validation.isValid) {
         return 'Por favor, ingresa un número de tarjeta de crédito válido';
     }
+
     return undefined;
 };
 
