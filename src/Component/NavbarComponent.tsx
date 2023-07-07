@@ -16,6 +16,7 @@ const NavbarComponent = ({ pushClick, sidebar_click }: Props) => {
     return (
         <nav
             className={`navbar-wrapper ${sidebar_click ? "sidebar-click" : ""}`}
+            style={{ zIndex: 100 }}
         >
             <Button
                 className="position-absolute d-none d-sm-flex"
