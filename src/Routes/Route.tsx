@@ -1,8 +1,9 @@
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom";
 
 import Layout from "../View/Layout";
 import Main from "../View/LoginGlobal/Main";
+import Lista from "../View/ListRegisterGlobal/Main";
 
 export default function RouteMain() {
     return (
@@ -10,12 +11,14 @@ export default function RouteMain() {
         <Router>
             <Layout>
                 <Routes>
-                    <Route path="/" element={<Main />}></Route>
-                    <Route path="/operaciones" element={<></>} />
+                    <Route path="/registro" element={<Outlet />}>
+                        <Route index element={<Main />} ></Route>
+                    </Route>
+                    <Route path="/registro/:id" element={<Main />} ></Route>
                     <Route
-                        path="/operaciones/clientes/:id_cliente"
-                        element={<></>}
-                    />
+                        path="/registrados"
+                        element={<Lista />}
+                    ></Route>
 
                 </Routes>
             </Layout>
