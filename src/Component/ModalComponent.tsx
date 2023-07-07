@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormValues } from '../models/GlobalTypes';
+import { Registro } from '../models/GlobalTypes';
 
 
 
@@ -7,10 +7,18 @@ interface Props {
     titleModal: string;
     saveButton: (e: any) => void;
     closeModal: (e: any) => void;
-    props: FormValues | string;
+    props: Registro | string;
     isActiveModal: Boolean;
 }
-
+/**
+ * 
+ * @param titleModal como su nombre lo indica es el titulo principal del modal
+ * @param saveButton si deseamos aceptar algo debemos de parar por este prop 
+ * @param closeModal si deseamos cancelar algo debemos de parar por este prop
+ * @param props por aqui debemos parar un array de objetos o bien un string
+ * @param isActiveModal dato de tipo boolean que si esta en true se muestra el modal
+ * @returns 
+ */
 const ModalComponent = ({ titleModal, saveButton, closeModal, props, isActiveModal }: Props) => {
     let content: React.ReactNode;
 
