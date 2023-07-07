@@ -1,31 +1,32 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-interface Sidebar {
-  tamanio: string;
-}
 
 interface State {
-  sidebar: Sidebar;
+  sidebar: boolean;
+  viewForm: string;
 }
 
 const initialState: State = {
-  sidebar: {
-    tamanio: "15%",
-  },
+  sidebar: false,
+  viewForm: 'registrar'
 };
 
 export const contextSlice = createSlice({
   name: "context",
   initialState: initialState,
   reducers: {
-    changeTamanio: (state: State, action: PayloadAction<Sidebar>) => {
-      const { tamanio }: Sidebar = action.payload;
-      state.sidebar.tamanio = tamanio;
+    setClickSidebar: (state: State, action: PayloadAction<boolean>) => {
+      const sidebar: boolean = action.payload;
+      state.sidebar = sidebar;
     },
+    changeViewForm: (state: State, action: PayloadAction<string>) => {
+      const viewForm: any = action.payload;
+      state.viewForm = viewForm
+    }
   },
 });
 
-export const { changeTamanio } = contextSlice.actions;
+export const { setClickSidebar, changeViewForm } = contextSlice.actions;
 
 export default contextSlice.reducer;
 
