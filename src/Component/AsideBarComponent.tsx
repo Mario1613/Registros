@@ -1,64 +1,53 @@
-import React from 'react'
-import { RootState } from '../store'
-import { useSelector } from 'react-redux'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Button } from 'react-bootstrap';
 
-const AsideBarComponent = () => {
-    const tamanio = useSelector((state: RootState) => state.context.sidebar.tamanio)
-    return (
-        <div className="d-none d-sm-flex flex-column flex-shrink-0 p-3 bg-light h-100 position-absolute elevation-4" style={{ width: tamanio }}>
-            <a href="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-                {/* <svg className="bi me-2" width="40" height="32"><use xlink: href="#bootstrap"></use></svg> */}
-                <span className="fs-4">Sidebar</span>
-            </a>
-            {/* <hr> */}
-            <ul className="nav nav-pills flex-column mb-auto ">
-                <li className="nav-item">
-                    <a href="#" className="nav-link active" aria-current="page">
-                        <svg className="bi me-2" width="16" height="16"><use href="#home"></use></svg>
-                        Home
-                    </a>
-                </li>
-                <li>
-                    <a href="#" className="nav-link link-dark">
-                        <svg className="bi me-2" width="16" height="16"><use href="#speedometer2"></use></svg>
-                        Dashboard
-                    </a>
-                </li>
-                <li>
-                    <a href="#" className="nav-link link-dark">
-                        <svg className="bi me-2" width="16" height="16"><use href="#table"></use></svg>
-                        Orders
-                    </a>
-                </li>
-                <li>
-                    <a href="#" className="nav-link link-dark">
-                        <svg className="bi me-2" width="16" height="16"><use href="#grid"></use></svg>
-                        Products
-                    </a>
-                </li>
-                <li>
-                    <a href="#" className="nav-link link-dark">
-                        <svg className="bi me-2" width="16" height="16"><use href="#people-circle"></use></svg>
-                        Customers
-                    </a>
-                </li>
-            </ul>
-            {/* <hr> */}
-            <div className="dropdown">
-                <a href="#" className="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                    {/* <img src="https://github.com/mdo.png" alt="" width="32" height="32" className="rounded-circle me-2"> */}
-                    <strong>mdo</strong>
-                </a>
-                <ul className="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                    <li><a className="dropdown-item" href="#">New project...</a></li>
-                    <li><a className="dropdown-item" href="#">Settings</a></li>
-                    <li><a className="dropdown-item" href="#">Profile</a></li>
-                    {/* <li><hr className="dropdown-divider"></li> */}
-                    <li><a className="dropdown-item" href="#">Sign out</a></li>
-                </ul>
-            </div>
-        </div>
-    )
+type RouteButton = {
+    id: string;
+    title: string;
+    route: string;
+};
+
+interface Props {
+    routeButtons: RouteButton[];
+    title: string;
+    tamanio: string;
 }
+/**
+ * 
+ * @param tamanio es el ancho del sidebar.
+ * @param title es el titulo principal
+ * @param routeButtons es el arrray de objetos con propiedades de tipo id,title y route
+ * @returns retorna unicamente el tsx
+ */
+const AsideBarComponent = ({ tamanio, title, routeButtons }: Props) => {
+    const [active, setActive] = useState('0');
 
-export default AsideBarComponent
+    /**
+     * @param id sirve para ver que boton es el que se le aplicara la clase active
+     */
+    const handleItemClick = (id: string) => {
+        setActive(id);
+    };
+
+    return (
+        <div className="d-none d-block d-sm-flex flex-column flex-shrink-0 p-3 bg-light h-100 position-absolute elevation-4" style={{ width: tamanio }}>
+            <Button className="position-absolute d-flex">X</Button>
+            <Link to="/" className="d-flex align-items-center mb-3 mb-md-0 link-dark text-decoration-none mt-4">
+                <span className="fs-2 d-flex text-center text-success fw-bold">{title}</span>
+            </Link>
+            <ul className="nav nav-pills flex-column mt-5 ">
+                {routeButtons.map((route: RouteButton) => (
+                    <li key={route.id} className="nav-item fs-5 fw-semibold mb-3" onClick={() => handleItemClick(route.id)}>
+                        <Link to={route.route} className={`nav-link ${active === route.id && 'active'} text-center`} aria-current="page">
+                            {route.title}
+                        </Link>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+};
+
+export default AsideBarComponent;
