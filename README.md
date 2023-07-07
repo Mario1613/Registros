@@ -44,3 +44,13 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## Rutas
+
+Las rutas que corresponden son la de:
+
+### /registrados
+
+### /registro
+
+Las credenciales las deje sin .env ya que el proyecto no va a desarrollo y las credenciales se eliminaran
