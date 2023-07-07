@@ -6,13 +6,13 @@ import { RootState } from '../store';
 import { setClickSidebar } from '../store/slices/context';
 
 const Layout = (props: any) => {
-    const sidebarClick = useSelector((state: RootState) => state.context.sidebar)
+    const sidebar_click = useSelector((state: RootState) => state.context.sidebar)
     const dispatch = useDispatch()
 
     /**
      * Hace que el sidebar derecho aparesca y desaparesca
      */
-    const pushClick = () => dispatch(setClickSidebar(!sidebarClick))
+    const pushClick = () => dispatch(setClickSidebar(!sidebar_click))
 
     /**
      * Arreglo de objetos que depende el largo agrega botones de lado lateral en el sidebar
@@ -31,8 +31,8 @@ const Layout = (props: any) => {
     ]
     return (
         <>
-            <AsideBarComponent sidebarClick={sidebarClick} title={"Grupo Standex"} routeButtons={routeButtons} />
-            <NavbarComponent sidebarClick={sidebarClick} pushClick={pushClick} />
+            <AsideBarComponent sidebar_click={sidebar_click} title={"Grupo Standex"} routeButtons={routeButtons} />
+            <NavbarComponent sidebar_click={sidebar_click} pushClick={pushClick} />
             {props.children}
         </>
 
