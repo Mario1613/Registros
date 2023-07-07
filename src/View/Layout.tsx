@@ -6,12 +6,24 @@ import { useSelector } from 'react-redux'
 
 const Layout = (props: any) => {
     const tamanio = useSelector((state: RootState) => state.context.sidebar.tamanio)
+
+    let routeButtons = [
+        {
+            id: '0',
+            route: '/',
+            title: 'Registro',
+        },
+        {
+            id: '1',
+            route: "/lista",
+            title: "Registrados"
+        }
+    ]
     return (
         <>
-            <AsideBarComponent />
+            <AsideBarComponent tamanio={tamanio} title={"Grupo Standex"} routeButtons={routeButtons} />
             <NavbarComponent tamanio={tamanio} />
             {props.children}
-
         </>
 
     )
