@@ -17,6 +17,8 @@ import { Registro } from "../models/GlobalTypes";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
+//Las credenciales las deje publicas ya que no es un proyecto a produccion y no hay mucho problema
+//ya que la colleccion la eliminare
 const firebaseConfig = {
     apiKey: "AIzaSyAnuTCssQMSYbhmWF2x7RGNDNu8lyO8zhY",
     authDomain: "registro-95d0f.firebaseapp.com",
