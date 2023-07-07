@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import styled from "styled-components";
 import fondoImg from '../../assets/fondo.jpg';
 import TableComponent from '../../Component/TableComponent';
-import { onGetRegistros, deleteRegistro } from '../../Firebase/Credencials';
+import { onGetRegistros, deleteRegistro, updateRegistro } from '../../Firebase/Credencials';
 import { useState, useEffect } from 'react';
 import { Registro } from '../../models/GlobalTypes';
 
@@ -38,7 +38,7 @@ const Main = () => {
                 <Row className="justify-content-center flex-md-row-reverse">
                     <Col xs={12} md={12} lg={12} className='mt-4' style={{ maxHeight: '70vh' }} >
                         <TableContainer>
-                            <TableComponent columns={columns} data={registros} deleteRegistro={deleteRegistro} />
+                            <TableComponent columns={columns} data={registros} deleteRegistro={deleteRegistro} updateRegistro={updateRegistro} />
                         </TableContainer>
                     </Col>
                 </Row>
