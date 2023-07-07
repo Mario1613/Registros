@@ -3,12 +3,12 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface State {
   sidebar: boolean;
-  viewForm: string;
+  view_form: string;
 }
 
 const initialState: State = {
   sidebar: false,
-  viewForm: 'registrar'
+  view_form: 'registrar'
 };
 
 export const contextSlice = createSlice({
@@ -20,8 +20,8 @@ export const contextSlice = createSlice({
       state.sidebar = sidebar;
     },
     changeViewForm: (state: State, action: PayloadAction<string>) => {
-      const viewForm: any = action.payload;
-      state.viewForm = viewForm
+      const view_form: any = action.payload;
+      state.view_form = view_form
     }
   },
 });
