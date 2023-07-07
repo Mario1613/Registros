@@ -1,23 +1,57 @@
-import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 import React, { useState } from 'react';
 import { Alert, Button, Card } from 'react-bootstrap';
 import { validateCreditCard, validateDateOfBirth, validateName, validateYouTubeUrl } from '../../utils/validators';
+import { saveRegistro } from '../../Firebase/Credencials';
+import ModalComponent from '../../Component/ModalComponent';
+import { Registro } from '../../models/GlobalTypes';
+import { changeViewForm } from '../../store/slices/context';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-interface FormValues {
-    name: string;
-    dateOfBirth: string;
-    creditCardNumber: string;
-    youtubeChannel: string;
-}
+const RegisterComponent = ({ LOADINFO }: any) => {
+    const [hasEmptyFields, setHasEmptyFields] = useState<Boolean>(false);
+    const [isActiveModal, setIsActiveModal] = useState<Boolean>(false)
 
-const RegisterComponent = () => {
-    const [hasEmptyFields, setHasEmptyFields] = useState(false);
+    const dispatch = useDispatch()
+    const navigate = useNavigate();
+    const [props, setProps] = useState<Registro>({
+        name: '',
+        dateOfBirth: '',
+        creditCardNumber: '',
+        youtubeChannel: '',
+    })
 
-    const handleSubmit = (values: FormValues, { resetForm }: FormikHelpers<FormValues>) => {
-        console.log('hello');
-        console.log(values);
-        resetForm();
+
+    const handleSubmit = (values: Registro) => {
+        if (values.name.length > 4 && values.creditCardNumber.length >= 16 && values.dateOfBirth.length > 4 && values.youtubeChannel.length > 10) {
+            setProps(values)
+            setIsActiveModal(true)
+            dispatch(changeViewForm('registrado'))
+            LOADINFO()
+        } else {
+            setHasEmptyFields(true)
+        }
     };
+
+    const closeModal = () => {
+        setIsActiveModal(false)
+    }
+    const saveModal = () => {
+        setIsActiveModal(false)
+        saveRegistro(props).then((id: string) => {
+            localStorage.setItem("idsesion", id)
+            navigate(`/registro/${id}`);
+        }
+        )
+        dispatch(changeViewForm('registrado'))
+        setProps({
+            name: '',
+            dateOfBirth: '',
+            creditCardNumber: '',
+            youtubeChannel: '',
+        })
+    }
 
     const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -36,7 +70,14 @@ const RegisterComponent = () => {
         setHasEmptyFields(emptyFields);
 
         if (!emptyFields) {
-            // handleSubmit(form,);
+            const formData = new FormData(form);
+            const values: Registro = {
+                name: formData.get('name') as string,
+                dateOfBirth: formData.get('dateOfBirth') as string,
+                creditCardNumber: formData.get('creditCardNumber') as string,
+                youtubeChannel: formData.get('youtubeChannel') as string,
+            };
+            handleSubmit(values);
         }
     };
 
@@ -120,6 +161,9 @@ const RegisterComponent = () => {
                                 Por favor, completa todos los campos.
                             </Alert>
                         )}
+                        {isActiveModal && (
+                            <ModalComponent titleModal="Estas seguro que tus datos son correctos?" closeModal={closeModal} props={props} isActiveModal={isActiveModal} saveButton={saveModal} />
+                        )}
 
                         <Button className="btn btn-primary fw-bold px-3 py-2" type="submit">
                             Registrarse
@@ -138,3 +182,4 @@ const CustomErrorMessage: React.FC = ({ children }: any) => (
 );
 
 export default RegisterComponent;
+
