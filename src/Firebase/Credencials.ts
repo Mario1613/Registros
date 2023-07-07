@@ -12,6 +12,7 @@ import {
     doc,
     updateDoc
 } from "firebase/firestore";
+import { Registro } from "../models/GlobalTypes";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -31,27 +32,39 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore();
 
-export const saveRegistro = (title: string, description: string) => {
-    addDoc(collection(db, "registro"), {
-        title: title,
-        description: description,
-    });
+/**
+ * 
+ * @param values se tiene que pasar un objeto con sus datos de tipo registro
+ * @returns void
+ */
+export const saveRegistro = async (values: Registro): Promise<string> => {
+    const docRef = await addDoc(collection(db, "registro"), values);
+    return docRef.id;
 };
 
 
+/**
+ * 
+ * @param id pasamos el id del registro que deseamos obtener
+ * @returns 
+ */
+export const getRegistro = (id: string) => getDoc(doc(db, "registro", id));
 
-export const getTask = (id: string) => getDoc(doc(db, "tasks", id));
+export const onGetRegistros = (callback: any) => onSnapshot(collection(db, "registro"), callback);
 
-export const onGetTasks = (callback: any) => onSnapshot(collection(db, "tasks"), callback);
+/**
+ * 
+ * @param id se pasa el id del registro que seamos eliminar
+ * @returns retorna un estatus
+ */
+export const deleteRegistro = (id: string) => deleteDoc(doc(db, `registro`, id))
 
-export const deleteTask = (id: string) => deleteDoc(doc(db, `tasks`, id))
 
-
-export const updateTask = (id: string, newFields: any) => {
-    updateDoc(doc(db, 'tasks', id), newFields)
+export const updateRegistro = (id: string, newFields: any) => {
+    updateDoc(doc(db, 'registro', id), newFields)
 
 }
-export const getTasks = () => getDocs(collection(db, "tasks"))
+export const getRegistros = () => getDocs(collection(db, "registro"))
 
 
 
