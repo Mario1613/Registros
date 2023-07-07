@@ -20,6 +20,7 @@ interface Props {
  * @returns 
  */
 const AsideBarComponent = ({ sidebarClick, title, routeButtons }: Props) => {
+    //Depediendo la ruta se le aplicara una clase color azul a los botones
     const location = useLocation();
     const currentPath = location.pathname;
     return (
