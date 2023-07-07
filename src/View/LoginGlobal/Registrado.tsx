@@ -6,8 +6,6 @@ interface Props {
 }
 
 const Registrado = ({ userInfo }: Props) => {
-    console.log(userInfo);
-
     return (
         <div className="card p-4">
             <h1 className="text-success fw-bold fs-1">Información Registrada:</h1>
