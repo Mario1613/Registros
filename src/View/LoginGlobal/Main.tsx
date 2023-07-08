@@ -43,7 +43,6 @@ const Main = () => {
           dispatch(changeViewForm("registrado"));
         }
         if (!result) {
-          localStorage.removeItem("idsesion");
           navigate("/registro");
         }
       }
