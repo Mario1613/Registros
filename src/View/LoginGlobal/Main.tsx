@@ -81,20 +81,20 @@ const Main = () => {
 };
 
 const BackgroundWrapper = styled.div`
-    height:100%;
-    @media(min-width:900px){
-        height:100vh;
-    }
-    width:100%;
-    background-size: cover;
+  height: 100%;
+  @media (min-width: 900px) {
+    height: 100vh;
+  }
+  width: 100%;
+  background-size: cover;
 `;
 
 const ContainerWrapper = styled(Container)`
   display: flex;
   flex-direction: column;
-  margin-top: 11%;
-  @media(max-width:768px){
-    margin-top:32%;
+  margin-top: 32%;
+  @media (min-width: 768px) {
+    margin-top: 11%;
   }
 `;
 
