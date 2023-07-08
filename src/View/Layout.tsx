@@ -30,13 +30,17 @@ const Layout = (props: any) => {
         }
     ]
     return (
-        <>
-            <AsideBarComponent sidebar_click={sidebar_click} title={"Grupo Standex"} routeButtons={routeButtons} />
-            <NavbarComponent sidebar_click={sidebar_click} pushClick={pushClick} />
-            {props.children}
-        </>
-
-    )
+      <>
+        <AsideBarComponent
+          sidebar_click={sidebar_click}
+          title={"Grupo Standex"}
+          routeButtons={routeButtons}
+          pushClick={pushClick}
+        />
+        <NavbarComponent sidebar_click={sidebar_click} pushClick={pushClick} />
+        {props.children}
+      </>
+    );
 }
 
 export default Layout
